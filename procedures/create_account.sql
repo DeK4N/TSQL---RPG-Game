@@ -11,7 +11,7 @@ Desc: Procedure responsible for creating new game account in database
 ===================================================================================================================================
 Sample
 ===================================================================================================================================
-EXEC create_account 'test', ''
+EXEC create_account 'test', 'test'
  
 ===================================================================================================================================
 Change History
@@ -31,6 +31,16 @@ BEGIN
             RAISERROR('[Login] and [password] cannot be null or empty value!', 16, 1)
         END
 
+        IF EXISTS (
+            SELECT
+                AccId
+            FROM Accounts
+            WHERE LOWER(Acclogin) = LOWER(@Login)
+        )
+        BEGIN
+            RAISERROR('Account with this login currentyl exists', 16, 1)
+        END 
+
         INSERT INTO Accounts (
             AccLogin,
             AccPassword
@@ -40,7 +50,7 @@ BEGIN
             HASHBYTES('SHA2_512', @Password)
         )
 
-        PRINT("Account created succesfully!")
+        PRINT('Account created succesfully!')
 
     END TRY
 
