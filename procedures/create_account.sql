@@ -58,10 +58,5 @@ BEGIN
 
         SELECT 
             ERROR_MESSAGE() 'Error message'
-
-        IF XACT_STATE() = -1
-            ROLLBACK TRANSACTION
-        ELSE IF XACT_STATE() = 1
-            COMMIT TRANSACTION
     END CATCH
 END
