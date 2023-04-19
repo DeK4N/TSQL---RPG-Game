@@ -27,9 +27,7 @@ BEGIN
     BEGIN TRY
 
         IF ISNULL(@Login, '') = '' OR ISNULL(@Password, '') = ''
-        BEGIN
             RAISERROR('[Login] and [password] cannot be null or empty value!', 16, 1)
-        END
 
         IF EXISTS (
             SELECT
@@ -37,9 +35,7 @@ BEGIN
             FROM Accounts
             WHERE LOWER(Acclogin) = LOWER(@Login)
         )
-        BEGIN
-            RAISERROR('Account with this login currentyl exists', 16, 1)
-        END 
+            RAISERROR('Account with this login currently exists', 16, 1)
 
         INSERT INTO Accounts (
             AccLogin,
