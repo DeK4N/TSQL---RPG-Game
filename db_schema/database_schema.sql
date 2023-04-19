@@ -53,6 +53,30 @@ CREATE TABLE LoggedUser (
     CharID INT DEFAULT NULL
 )
 
+CREATE TABLE Location (
+    LocationID INT IDENTITY(1,1) PRIMARY KEY,
+    LocationName NVARCHAR(50),
+    MinLvl INT,
+    MaxLvl INT
+)
+
+CREATE TABLE Enemy (
+    EnemyID INT IDENTITY(1,1) PRIMARY KEY,
+    EnemyName NVARCHAR(50),
+    HP INT,
+    STR INT,
+    DEX INT,
+    [INT] INT,
+    LVL INT
+)
+
+CREATE TABLE LocationsEnemies (
+    LocEneID INT IDENTITY(1,1) PRIMARY KEY,
+    LocationID INT,
+    EnemyID INT,
+)
+
+
 GO
 
 ALTER TABLE AccountCharacters ADD CONSTRAINT FK_accchars_accounts
@@ -63,6 +87,12 @@ FOREIGN KEY (CharID) REFERENCES Characters(CharID)
 
 ALTER TABLE Classes ADD CONSTRAINT FK_classes_weapontypes
 FOREIGN KEY (WeaponTypeID) REFERENCES WeaponTypes(WeaponTypeID)
+
+ALTER TABLE LocationsEnemies ADD CONSTRAINT FK_locene_location
+FOREIGN KEY (LocationID) REFERENCES Location(LocationID)
+
+ALTER TABLE LocationsEnemies ADD CONSTRAINT FK_locene_enemy
+FOREIGN KEY (EnemyID) REFERENCES Enemy(EnemyID)
 
 
 
