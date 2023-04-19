@@ -47,6 +47,12 @@ CREATE TABLE LevelsTable (
     XP DECIMAL(16,2)
 )
 
+CREATE TABLE LoggedUser (
+    LoggedUserID INT IDENTITY(1,1) PRIMARY KEY,
+    AccID INT,
+    CharID INT DEFAULT NULL
+)
+
 GO
 
 ALTER TABLE AccountCharacters ADD CONSTRAINT FK_accchars_accounts
